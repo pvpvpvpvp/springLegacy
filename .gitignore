@@ -72,3 +72,4 @@ local.properties
 
 # 빌드파일 제외하기
 target
+.class
