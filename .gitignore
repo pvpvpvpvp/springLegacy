@@ -71,4 +71,4 @@ local.properties
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
 
 # 빌드파일 제외하기
-target/*
+target
