@@ -3,6 +3,7 @@ package org.conan.service;
 import java.util.List;
 
 import org.conan.vo.BoardVO;
+import org.springframework.stereotype.Service;
 
 public interface BoardService {
 	public void regstaer(BoardVO vo);
