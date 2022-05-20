@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -19,7 +20,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@ComponentScan(basePackages = ("org.conan.sample"))
+@ComponentScan(basePackages = ("org.conan.*"))
 @MapperScan(basePackages = ("org.conan.mapper"))
 public class RootConfig {
 	
@@ -38,7 +39,7 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
+		sqlSessionFactory.setTypeAliasesPackage("org.conan.vo");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
-	
 }
