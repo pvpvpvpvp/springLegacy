@@ -49,12 +49,12 @@ public class BoardController {
 		rttr.addFlashAttribute("result", vo.getBno());
 		return "redirect:/board/list";
 	}
-	@GetMapping("/get")
+	@GetMapping({"/get","/modify"})
 	public void register(@RequestParam("bno")Long bno, Model model) {
 		log.info("/get");
 		model.addAttribute("board", serviceImpl.get(bno));
 	}
-	@PostMapping("modify")
+	@PostMapping("/modify")
 	public String get(BoardVO board, RedirectAttributes rttr) {
 		log.info("modify: "+board);
 		if(serviceImpl.modify(board)) {
@@ -62,7 +62,7 @@ public class BoardController {
 		}
 		return "redirect:/board/list";
 	}
-	@PostMapping("remove")
+	@PostMapping("/remove")
 	public String remove(@RequestParam("bno")Long bno, RedirectAttributes rttr) {
 		log.info("remove: "+bno);
 		if(serviceImpl.remove(bno)) {

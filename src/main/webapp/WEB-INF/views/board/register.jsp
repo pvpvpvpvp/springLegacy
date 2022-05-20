@@ -19,7 +19,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                      	
-                         <form action="/board/register" method="POST" role="form" accept-charset="euc-kr">
+                         <form action="/board/register" method="POST" role="form">
                          	<div class="form-group">
                          		<label>Title</label>
                          		<input class="form-control" name="title">

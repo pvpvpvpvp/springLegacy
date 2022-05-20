@@ -32,7 +32,7 @@
                                 	<c:forEach items="${list }" var="board">                   	
                                 	<tr class="odd gradeX">
                                         <td>${board.bno }</td>
-                                        <td><a href="#">${board.title }</a></td>
+                                        <td><a href=/board/get?bno=${board.bno }>${board.title }</a></td>
                                         <td>${board.writer }</td>
                                         <td><fmt:formatDate value="${board.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
                                         <td><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -41,9 +41,25 @@
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
-                          
+                          	
                             </div>
                             <!-- /.table-responsive -->
+				                             <!-- /.row -->
+				            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
+				                <div class="modal-dialog">
+				                    <div class="modal-content">
+				                        <div class="modal-header">
+				                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				                        </div>
+				                        <div class="modal-body">처리가 완료되었습니다.</div>
+				                        <div class="modal-footer">
+				                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				                             <button type="button" class="btn btn-default" >Save Changes</button>
+				                        </div>
+				                   </div>
+				                </div>
+				             </div> <!-- /.modal fade -->
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -52,4 +68,25 @@
                 <!-- /.col-lg-6 -->
             </div>
             <!-- /.row -->
+            
+         
+            <script type="text/javascript">
+            $(function () {
+                let result ='<c:out value="${result}"/>';
+                console.log("${list }");
+                const checkModal = result => {
+                    if (result == '') {
+                        return;
+                    }
+                    if (parseInt(result) > 0) {
+                        $(".modal-body").html(
+                            `게시글 ${"${parseInt(result)}"}번이 등록되었습니다`
+                        );
+                    }
+                    $("#myModal").modal("show");
+                }
+                checkModal(result);
+            });
+            </script>
+     
  <%@include file="../includes/footer.jsp" %>       

@@ -5,7 +5,7 @@
   		SELECT * FROM tbi_board ORDER BY bno
   	</select>
   	<insert id="insert">
-  		INSERT INTO TBI_BOARD (BNO, TITLE, CONTENT, WIRITER) 
+  		INSERT INTO TBI_BOARD (BNO, TITLE, CONTENT, WRITER) 
   		VALUES(board_seq.Nextval, #{title}, #{content}, #{writer})
   	</insert>
   	
@@ -13,7 +13,7 @@
   		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
   			SELECT board_seq.nextval FROM dual
   		</selectKey>
-  		INSERT INTO TBI_BOARD (BNO, TITLE, CONTENT, WIRITER) 
+  		INSERT INTO TBI_BOARD (BNO, TITLE, CONTENT, WRITER) 
   		VALUES(#{bno}, #{title}, #{content}, #{writer})
   	</insert>
   	
@@ -24,6 +24,7 @@
   		UPDATE tbi_board
   		set title = #{title},
   		content = #{content},
+  		writer = #{writer},
   		updateDate = sysdate
   		WHERE bno = #{bno}
   	</update>
