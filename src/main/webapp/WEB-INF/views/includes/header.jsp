@@ -14,7 +14,9 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
-
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="/resources/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -39,7 +41,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
 
 </head>
 

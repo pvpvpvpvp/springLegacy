@@ -42,55 +42,65 @@
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
+
             </div>
             <!-- /.col-lg-6 -->
         </div>
         <!-- /.row -->
         <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-comments fa-fw"></i> Reply</div>
+            <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>
+                Reply
+                <button class="btn btn" id="addReplyBtn">댓글 작성하기</button>
+
+            </div>
             <div class="panel-body">
                 <ul class="chat">
-                    
+
                 </ul>
             </div>
         </div> <!-- /.reply panel -->
-        
-        <div class="modal-content">
-        	<div class="modal-header">
-        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-        			&times;
-        		</button>
-        		<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
-        	</div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Reply</label><input class="form-control" name="reply" value="New Reply!!!!">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModallabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Reply</label> <input class="form-control" name='reply' value='New Reply!!' />
+                        </div>
+                        <div class="form-group">
+                            <label>Replyer</label> <input class="form-control" name='replyer' value='New Replyer!!' />
+                        </div>
+                        <div class="form-group">
+                            <label>ReplyDate</label> <input class="form-control" name='replyDate'
+                                value='New Reply Date!!' />
+                        </div>
+                        <!--             //replyer, replyDate 를위한 div 배치 -->
+                    </div>
+                    <div class="modal-footer">
+                        <button id='modalModBtn' type="button" class="btn btn-info">Modify</button>
+                        <button id='modalRegisterBtn' type="button" class="btn btn-info">Register</button>
+                        <button id='modalCloseBtn' type="button" class="btn btn-info">Close</button>
+                        <button id='modalRemoveBtn' type="button" class="btn btn-info">Remove</button>
+                        <!--             id 가 modalRemoveBtn, modalRegisterBtn, modalCloseBtn 배치 -->
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button id="modalModBtn">Modify</button>
-            </div>
         </div>
-        
+
         <script src="/resources/js/reply.js"></script>
         <script>
             $(document).ready(function () {
                 var bnoValue = `${board.bno}`
-                // replyService.add(
-                //     {
-                //         reply:"Js Test",
-                //         replyer:"js tester",
-                //         bno:bnoValue
-                //     },
-                //     result =>{
-                //         alert(`RESULT: ${'${result}'}`);
-                //     }
-                // )
                 const replyUL = $('.chat');
-                replyService.getList(
-                    { bno: bnoValue, page: 1 },
+
+                const showList = page => replyService.getList(
+                    { bno: bnoValue, page: page },
                     list => {
-                        let str =""
+                        let str = ""
                         list.forEach(element => {
                             let time = replyService.displyaTime(element.replyDate);
                             str += `
@@ -105,9 +115,67 @@
                             </li>`
                         });
                         replyUL.html(str);
-                    } 
+                    }
                 )
+                showList(1);
+
+           
+
+                const modal = $(".modal");
+                const modalInputReply = modal.find("input[name='reply']");
+                const modalInputReplyer = modal.find("input[name='replyer']");
+                const modalInputReplyDate = modal.find("input[name='replyDate']");
+
+                const modalModBtn = $("#modalModBtn");
+                const modalRemoveBtn = $("#modalRemoveBtn");
+                const modalRegisterBtn = $("#modalRegisterBtn");
+                const modalCloseBtn = $("#modalCloseBtn");
+
+                $('#addReplyBtn').on("click", function (e) {
+                    modal.find("input").val("");
+                    modalInputReplyDate.closest("div").hide();
+                    modal.find("button[id!='modalCloseBtn']").hide();
+                    modalRegisterBtn.show();
+                    $('#myModal').modal("show");
+                });
+                
+                modalRegisterBtn.on("click", function (e) {
+                    let reply = {
+                        reply:modalInputReply.val(),
+                        replyer:modalInputReplyer.val(),
+                        bno:bnoValue
+                    }
+                    replyService.add(
+                    reply,
+                    result =>{
+                        modal.find("input").val("");
+                        modal.modal("hide");
+                        showList(1);
+                    }
+                )
+                });
+
+                $('.chat').on("click",'li', function (e) {
+                    let rno = $(this).data("rno");
+                    replyService.get(rno, function(reply){
+                    	modalInputReply.val(reply.reply);
+                    	modalInputReplyer.val(reply.replyer);
+                    	modalInputReplyDate.val(reply.replyDate).attr("readonly","readonly");
+                    	modal.data("rno",reply.rno);
+                    	
+                    	modal.find("button[id!='modalCloseBtn']").hide();
+                    	modalModBtn.show();
+                    	modalRemoveBtn.show();
+                    	modal.modal("show");
+                    })
+                });
+
               
+
+               
+
+            
+
                 // replyService.remove(
                 //     19,
                 //     count => {
@@ -121,23 +189,23 @@
                 //     }
                 // )
 
-                replyService.update(
-                    {
-                        rno: 26,
-                        bno: bnoValue,
-                        reply: "modified reply...",
-                        replyer: "야너두?"
-                    },
-                    result => {
-                        alert("수정 완료");
-                    }
-                )
-                replyService.get(
-                    26,
-                    data => {
-                        console.log(data);
-                    }
-                )
+                // replyService.update(
+                //     {
+                //         rno: 26,
+                //         bno: bnoValue,
+                //         reply: "modified reply...",
+                //         replyer: "야너두?"
+                //     },
+                //     result => {
+                //         alert("수정 완료");
+                //     }
+                // )
+                // replyService.get(
+                //     26,
+                //     data => {
+                //         console.log(data);
+                //     }
+                // )
 
             });
         </script>
