@@ -12,7 +12,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            게시글 작성
+                            게시글 확인
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -42,4 +42,53 @@
                 <!-- /.col-lg-6 -->
             </div>
             <!-- /.row -->
+            <script src="/resources/js/reply.js"></script>
+            <script>
+                $(document).ready(function () {
+                    var bnoValue = `${board.bno}`
+                    // replyService.add(
+                    //     {
+                    //         reply:"Js Test",
+                    //         replyer:"js tester",
+                    //         bno:bnoValue
+                    //     },
+                    //     result =>{
+                    //         alert(`RESULT: ${'${result}'}`);
+                    //     }
+                    // )
+                    
+                    replyService.getList(
+                        {bno:bnoValue,page:1},
+                        list => {
+                            list.forEach(element => {
+                                console.log(element);
+                            });
+                        }
+                    )
+
+                    // replyService.remove(
+                    //     19,
+                    //     count => {
+                    //         console.log(count);
+                    //         if (count==="success") {
+                    //             alert("REMOVED");
+                    //         }
+                    //     }
+                    //     ,err => {
+                    //         alert("error occurred...");
+                    //     }
+                    // )
+
+                    replyService.update(
+                        {
+                            rno:4,
+                            bno:bnoValue,
+                            reply:"modified reply..."
+                        },
+                        result => {
+                            alert("수정 완료");
+                        }
+                    )
+                });
+            </script>
  <%@include file="../includes/footer.jsp" %>       

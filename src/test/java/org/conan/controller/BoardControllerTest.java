@@ -1,7 +1,12 @@
 package org.conan.controller;
 
+import java.util.List;
+
 import org.conan.config.RootConfig;
 import org.conan.config.ServletConfig;
+import org.conan.domain.Criteria;
+import org.conan.mapper.BoardMapper;
+import org.conan.vo.BoardVO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +29,8 @@ public class BoardControllerTest {
 	  @Setter(onMethod_ = {@Autowired})
 	  private WebApplicationContext ctx;
 	  private MockMvc mockMvc;
+	  @Autowired
+	  private BoardMapper boardMapper;
 	  
 	  //MockMvc : 가짜 mvc, 브라우저에서 사용하는 거처럼 Controller 실행
 	  @Before
@@ -70,4 +77,20 @@ public class BoardControllerTest {
 				  .andReturn().getModelAndView().getViewName();
 		  log.info(resultPage);
 	  }
+	  
+	  @Test
+	  public void testSearch() throws Exception{
+		  Criteria cri = new Criteria();
+		  cri.setKeyword("지성");
+		  cri.setType("TWC");
+		  List<BoardVO> list = boardMapper.getListWithSearch(cri);
+		  list.forEach(board -> log.info(board));
+		  
+		  log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list")
+				  .param("keyword", "지성")
+				  .param("type", "TWC"))
+			        .andReturn().getModelAndView().getModelMap());
+//		  
+	  }
+	  
 }

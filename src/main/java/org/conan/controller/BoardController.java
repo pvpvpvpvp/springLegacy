@@ -3,6 +3,7 @@ package org.conan.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.conan.domain.Criteria;
 import org.conan.mapper.BoardMapper;
 import org.conan.service.BoardServiceImpl;
 import org.conan.vo.BoardVO;
@@ -34,8 +35,9 @@ public class BoardController {
 		return "board_home";
 	  }
 	@GetMapping("/list")
-	  public String boardGet(Model model) {
-		model.addAttribute("list", serviceImpl.getList());
+	  public String boardGet(Criteria cri,Model model) {
+		model.addAttribute("list", serviceImpl.getListWithSearch(cri));
+		model.addAttribute("total", serviceImpl.getTotal(cri));
 		return "board/list";
 	}
 	@GetMapping("/register")

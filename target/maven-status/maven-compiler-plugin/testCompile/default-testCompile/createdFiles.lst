@@ -1,5 +1,0 @@
-org\conan\mapper\TimeMapperTest.class
-org\conan\controller\SampleTest.class
-org\conan\persistence\DateSourceTests.class
-org\conan\controller\TestSample.class
-org\conan\persistence\JDBCTests.class

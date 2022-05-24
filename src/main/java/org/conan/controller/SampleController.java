@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import org.conan.domain.SampleDTO;
 import org.conan.domain.SampleDTOList;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -64,15 +63,6 @@ public class SampleController {
 	  public String ex02ArrayJson(SampleDTOList list) {
 	    log.info("list dtos: "+list);
 	    return list.toString();
-	  }
-	  
-	  @RequestMapping(value="/json-ex",method = RequestMethod.GET,produces = "application/json; charset=utf8")
-	  @ResponseBody
-	  public String jsonEX() {
-	    JSONObject jsonObject = new JSONObject();
-	   	jsonObject.append("test", "json");
-	
-	    return jsonObject.toString();
 	  }
 	  
 	  @GetMapping("/ex04")

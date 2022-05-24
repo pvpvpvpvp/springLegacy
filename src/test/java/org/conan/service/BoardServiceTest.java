@@ -40,11 +40,6 @@ public class BoardServiceTest {
 	
 	}
 	@Test
-	public void testget() {
-		log.info("boardServieTestResult: "+boardService.get(6L).toString());
-	
-	}
-	@Test
 	public void testDelete() {
 		log.info("boardServieTestResult: "+boardService.remove(6L));
 	}

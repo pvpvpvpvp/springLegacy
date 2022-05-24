@@ -16,10 +16,9 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="/resources/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="/resources/vendor/metisMenu/metisMenu.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
     <link href="/resources/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -31,7 +30,7 @@
     <link href="/resources/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

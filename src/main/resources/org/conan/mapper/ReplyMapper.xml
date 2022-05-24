@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.conan.mapper.ReplyMapper">
+	<select id="getAllreply" resultType="org.conan.vo.ReplyVO">
+		SELECT * FROM tbl_reply WHERE bno=#{bno}
+	</select>
+	<insert id="insert">	
+  		INSERT INTO tbl_reply (RNO, BNO, REPLY, REPLYER) 
+  		VALUES(REPLY_SEQ.Nextval, #{bno}, #{reply}, #{replyer})
+	</insert>
+	
+	<select id="getReply" resultType="org.conan.vo.ReplyVO">
+  		SELECT * FROM tbl_reply WHERE rno=#{rno}
+  	</select>
+	
+	<delete id="delete">
+  		DELETE from  tbl_reply where rno=#{rno}
+  	</delete>
+  	<update id="update">
+  		UPDATE tbl_reply
+  		set reply = #{reply},
+  		replyer = #{replyer},
+  		updateDate = sysdate
+  		WHERE rno = #{rno}
+  	</update>
+</mapper>

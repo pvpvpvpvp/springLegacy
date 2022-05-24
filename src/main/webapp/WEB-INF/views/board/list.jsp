@@ -14,7 +14,21 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            게시글 목록
+                            게시글 목록  ${total } 개 검색됨 <!-- if 처리 해야됨 -->
+                        </div>
+                        <div class="col-lg-12">
+                        	<form id='searchForm' action="/board/list" method="get">
+			                    <select class="form-group" name="type">
+			                      	<option value=""<c:out value="${criteria.type==null?'selected':''}"/>>--</option>
+			                       	<option value="T"<c:out value="${criteria.type eq 'T'?'selected':''}"/>>제목</option>
+			                      	<option value="TC"<c:out value="${criteria.type eq 'TC'?'selected':''}"/>>제목 OR 내용</option>
+			                      
+			                    </select>
+			                    <input type="text" class="form-control" name='keyword' value='<c:out value="${criteria.keyword}"/>'>
+			                    <span class="input-group-btn">
+			                      <button class="btn btn-info" type="button">검색하기</button>
+			                    </span>
+                  			</form>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -86,6 +100,21 @@
                     $("#myModal").modal("show");
                 }
                 checkModal(result);
+                
+                let searchForm = $("#searchForm");
+                $("#searchForm button").on("click", function(e){
+                	if (!searchForm.find("option:selected").val()) {
+						alert("검색 종류를 선택하세요");
+						return false;
+					}
+                	if (!searchForm.find("input[name='keyword']").val()) {
+						alert("키워드를 입력하세요");
+						return false;
+					}
+                	e.preventDefault();
+                	searchForm.submit();
+                })
+                
             });
             </script>
      

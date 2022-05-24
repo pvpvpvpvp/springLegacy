@@ -2,12 +2,12 @@ package org.conan.service;
 
 import java.util.List;
 
+import org.conan.domain.Criteria;
 import org.conan.mapper.BoardMapper;
 import org.conan.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -47,5 +47,16 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardMapper.getBoardList();
 	}
+	@Override
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return boardMapper.getTotalCount(cri);
+	}
 
+	@Override
+	public List<BoardVO> getListWithSearch(Criteria cri) {
+		// TODO Auto-generated method stub
+		return boardMapper.getListWithSearch(cri);
+	}
+	
 }
