@@ -54,6 +54,24 @@
                 </ul>
             </div>
         </div> <!-- /.reply panel -->
+        
+        <div class="modal-content">
+        	<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        			&times;
+        		</button>
+        		<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+        	</div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Reply</label><input class="form-control" name="reply" value="New Reply!!!!">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalModBtn">Modify</button>
+            </div>
+        </div>
+        
         <script src="/resources/js/reply.js"></script>
         <script>
             $(document).ready(function () {
@@ -74,12 +92,13 @@
                     list => {
                         let str =""
                         list.forEach(element => {
-                           str += `
+                            let time = replyService.displyaTime(element.replyDate);
+                            str += `
                            <li class="left clearfix" data-rno="${'${element.rno}'}">
                                 <div>
                                     <div class="header">
                                         <strong class="primary-font">${'${element.replyer}'}</strong>
-                                        <small class="pull-right text-muted">${'${element.replyDate}'}</small>
+                                        <small class="pull-right text-muted">${'${time}'}</small>
                                     </div>
                                     <p>${'${element.reply}'}</p>
                                 </div>
