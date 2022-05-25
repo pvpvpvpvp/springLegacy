@@ -3,6 +3,7 @@ package org.conan.service;
 import java.util.List;
 
 import org.conan.domain.Criteria;
+import org.conan.mapper.BoardAttachMapper;
 import org.conan.mapper.BoardMapper;
 import org.conan.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,23 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardMapper boardMapper;
+	@Autowired
+	BoardAttachMapper attachMapper;
 	
 	@Override
 	public void regstaer(BoardVO vo) {
+		log.info("DDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 		boardMapper.insertSelectKey(vo);
+		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		if(vo.getAttachList() == null || vo.getAttachList().size()<=0) {
+			log.info("OOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			return;
+		}
+		vo.getAttachList().forEach(attach->{
+			log.info("active ~ file upload");
+			attach.setBno(vo.getBno());
+			attachMapper.insert(attach);
+		});
 		
 	}
 

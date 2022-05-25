@@ -68,7 +68,7 @@ public class UploadController {
     		  attachVO.setFileType(true);
 			FileOutputStream thumbnall = 
 					new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
-			Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnall, 1024 , 1024);
+			Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnall, 100 , 100);
 			thumbnall.close();
 		}
     	  list.add(attachVO); log.info("attachVO: "+attachVO);
