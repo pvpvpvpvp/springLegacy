@@ -17,4 +17,5 @@ public class Criteria {
 	public String[] getTypeArr() {//검색 조건을 배열로 만들어 한꺼번에 처리 MyBatis는 java Beans의 규칙을 엄격하게 지키지 않음
 	    return type==null? new String[] {}:type.split("");
 	}
+
 }
