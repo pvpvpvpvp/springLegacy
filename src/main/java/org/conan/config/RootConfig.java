@@ -1,20 +1,14 @@
 package org.conan.config;
 
-import java.io.IOException;
-
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.conan.sample.Chef;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -22,6 +16,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @ComponentScan(basePackages = ("org.conan.*"))
 @MapperScan(basePackages = ("org.conan.mapper"))
+@EnableScheduling
 public class RootConfig {
 	
 	@Bean // 메소드의 실행 결과로 반환되는 객체는 스프링 객체로 등록
