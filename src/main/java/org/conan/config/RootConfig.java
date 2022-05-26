@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -19,6 +21,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages = ("org.conan.mapper"))
 @EnableScheduling
 @EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class RootConfig {
 	
 	@Bean // 메소드의 실행 결과로 반환되는 객체는 스프링 객체로 등록
@@ -30,6 +33,10 @@ public class RootConfig {
 		hikariConfig.setPassword("tiger"); 
 		
 		return new HikariDataSource(hikariConfig);
+	}
+	@Bean
+	public DataSourceTransactionManager txManager() {
+		return new DataSourceTransactionManager(dataSource());
 	}
 	
 	@Bean
