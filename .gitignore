@@ -71,35 +71,7 @@ local.properties
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
 
 # 빌드파일 제외하기
-target
+target/
 *.class
 *.class
-target/test-classes/org/conan/persistence/JDBCTests.class
-target/test-classes/org/conan/persistence/DateSourceTests.class
-target/test-classes/org/conan/mapper/TimeMapperTest.class
-target/test-classes/org/conan/controller/TestSample.class
-target/test-classes/org/conan/controller/SampleTest.class
-target/surefire-reports/TEST-org.conan.mapper.TimeMapperTest.xml
-target/surefire-reports/TEST-org.conan.controller.TestSample.xml
-target/surefire-reports/TEST-org.conan.controller.SampleTest.xml
-target/surefire-reports/org.conan.mapper.TimeMapperTest.txt
-target/surefire-reports/org.conan.controller.SampleTest.txt
-target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/sample/Restaurant.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/sample/Chef.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/mapper/TimeMapper.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/controller/SampleController.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/controller/HomeController.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/config/WebConfig.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/config/ServerConfig.class
-target/controller-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/org/conan/config/RootConfig.class
-target/controller-1.0.0-BUILD-SNAPSHOT.war
-target/classes/org/conan/sample/Restaurant.class
-target/classes/org/conan/sample/Chef.class
-target/classes/org/conan/mapper/TimeMapper.class
-target/classes/org/conan/controller/SampleController.class
-target/classes/org/conan/controller/HomeController.class
-target/classes/org/conan/config/WebConfig.class
-target/classes/org/conan/config/ServerConfig.class
-target/classes/org/conan/config/RootConfig.class
+
