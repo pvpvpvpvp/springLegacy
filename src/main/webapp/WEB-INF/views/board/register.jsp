@@ -55,6 +55,7 @@
 								</div>
 							</div>
 						</div>
+						
 					</div>
 					<!-- /.col-lg-6 -->
 				</div>

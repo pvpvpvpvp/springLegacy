@@ -22,6 +22,10 @@
 		DELETE TBL_ATTACH
 		WHERE bno=#{bno}
 	</delete>
+	<delete id="delete">
+		DELETE TBL_ATTACH
+		WHERE uuid=#{uuid}
+	</delete>
 	<select id="getOldFiles" resultMap="BoardAttachMap">
 		SELECT * FROM TBL_ATTACH WHERE uploadpath = to_char(sysdate-1,'yyyy/mm/dd')
 	</select>

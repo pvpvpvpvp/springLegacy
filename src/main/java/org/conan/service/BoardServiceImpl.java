@@ -5,6 +5,7 @@ import java.util.List;
 import org.conan.domain.Criteria;
 import org.conan.mapper.BoardAttachMapper;
 import org.conan.mapper.BoardMapper;
+import org.conan.mapper.ReplyMapper;
 import org.conan.vo.BoardAttachVO;
 import org.conan.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,15 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	@Autowired
 	BoardAttachMapper attachMapper;
+	@Autowired
+	ReplyMapper replyMapper;
 	
 	@Override
 	public void regstaer(BoardVO vo) {
-		log.info("DDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
 		boardMapper.insertSelectKey(vo);
-		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
 		if(vo.getAttachList() == null || vo.getAttachList().size()<=0) {
-			log.info("OOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			return;
 		}
 		vo.getAttachList().forEach(attach->{
@@ -54,12 +56,29 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean modify(BoardVO vo) {
 		// TODO Auto-generated method stub
+		if(vo.getAttachList() == null || vo.getAttachList().size()<=0) {
+			return 1==boardMapper.update(vo);
+		}
+		vo.getAttachList().forEach(attach->{
+			log.info("active ~ file upload");
+			attach.setBno(vo.getBno());
+			attachMapper.insert(attach);
+		});
+		
 		return 1==boardMapper.update(vo);
+	}
+	
+
+	@Override
+	public int removeFile(String uuid) {
+		// TODO Auto-generated method stub
+		return attachMapper.delete(uuid);
 	}
 
 	@Override
 	public boolean remove(Long bno) {
 		// TODO Auto-generated method stub'
+		replyMapper.boardDelete(bno);
 		attachMapper.deleteAll(bno);
 		return 1==boardMapper.delete(bno);
 	}

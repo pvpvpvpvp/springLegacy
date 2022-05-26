@@ -15,7 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -67,9 +69,9 @@ public class BoardController {
 		model.addAttribute("board", serviceImpl.get(bno));
 	}
 	@PostMapping("/modify")
-	public String get(BoardVO board, RedirectAttributes rttr) {
-		log.info("modify: "+board);
-		if(serviceImpl.modify(board)) {
+	public String get(BoardVO vo, RedirectAttributes rttr) {
+		log.info("modify: "+vo);
+		if(serviceImpl.modify(vo)) {
 			rttr.addFlashAttribute("result","success");
 		}
 		return "redirect:/board/list";
@@ -85,6 +87,15 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	@DeleteMapping("/deleteFileTable/{uuid}")
+	public void deleteFileTable(@PathVariable("uuid") String uuid, RedirectAttributes rttr) {
+		log.info("remove: "+uuid);
+		
+		if(1==serviceImpl.removeFile(uuid)) {
+			rttr.addFlashAttribute("result","success");
+		}
+	}
+	
 	private void deleteFiles(List<BoardAttachVO> attachList) {
 	    if (attachList==null||attachList.size()==0) {
 	      return;

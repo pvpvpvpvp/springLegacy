@@ -15,4 +15,5 @@ public interface BoardService {
 	public int getTotal(Criteria cri);
 	public List<BoardVO> getListWithSearch(Criteria cri);
 	public List<BoardAttachVO> getAttachList(Long bno);
+	public int removeFile(String uuid);
 }

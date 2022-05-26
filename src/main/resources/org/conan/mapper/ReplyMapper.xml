@@ -16,6 +16,9 @@
 	<delete id="delete">
   		DELETE from  tbl_reply where rno=#{rno}
   	</delete>
+  	<delete id="boardDelete">
+  		DELETE from tbl_reply where bno=#{bno}
+  	</delete>
   	<update id="update">
   		UPDATE tbl_reply
   		set reply = #{reply},

@@ -11,4 +11,5 @@ public interface ReplyMapper {
 	public List<ReplyVO> getReplyList(Long bno);
 	public int delete(Long rno);
 	public int update(ReplyVO vo);
+	public int boardDelete(Long bno);
 }
