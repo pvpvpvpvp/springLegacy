@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RootConfig.class})
 @Log4j
-public class BoardServiceTest {
+public class BoardServieTest {
 	@Autowired
 	private BoardService boardService;
 	

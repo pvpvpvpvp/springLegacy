@@ -8,6 +8,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -17,6 +18,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @ComponentScan(basePackages = ("org.conan.*"))
 @MapperScan(basePackages = ("org.conan.mapper"))
 @EnableScheduling
+@EnableAspectJAutoProxy
 public class RootConfig {
 	
 	@Bean // 메소드의 실행 결과로 반환되는 객체는 스프링 객체로 등록
