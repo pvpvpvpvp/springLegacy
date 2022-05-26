@@ -94,15 +94,15 @@
 							let str = "";
 							  $(uploadResultArr).each(function(i, obj){
 		            			   if(!obj.fileType){
-		            				   var fileCallPath  = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
-		            				   str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>";
+		            				   var fileCallPath  = encodeURIComponent(obj.uploadpath+"/"+obj.uuid+"_"+obj.fileName);
+		            				   str +="<li data-path='"+obj.uploadpath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>";
 		            				   str +="<span>"+obj.fileName+"</span>";
 		            				   str +="<button type='button' data-file=\'"+fileCallPath+"\' data-type='file'  class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
 		            				   str +="<img src='/resources/images/attach.png'></a>"
 		            				   str +="</div></li>";
 		            				}else{
-		            				   var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-		            				   str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>";
+		            				   var fileCallPath = encodeURIComponent(obj.uploadpath+"/s_"+obj.uuid+"_"+obj.fileName);
+		            				   str +="<li data-path='"+obj.uploadpath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>";
 		            				   str +="<span>"+obj.fileName+"</span>";
 		            				   str +="<button type='button' data-file=\'"+fileCallPath+"\' data-type='image'  class='btn btn-warning btn-circle'> <i class='fa fa-times'></i></button><br>";
 		            				   str +="<img src='/display?fileName="+fileCallPath+"'>"; 
@@ -169,11 +169,11 @@
 								console.dir(jobj);
 								str += "<input type='hidden' name='attachList[" + i + "].fileName' value='" + jobj.data("filename") + "'>";
 								str += "<input type='hidden' name='attachList[" + i + "].uuid' value='" + jobj.data("uuid") + "'>";
-								str += "<input type='hidden' name='attachList[" + i + "].uploadPath' value='" + jobj.data("path") + "'>";
+								str += "<input type='hidden' name='attachList[" + i + "].uploadpath' value='" + jobj.data("path") + "'>";
 								str += "<input type='hidden' name='attachList[" + i + "].fileType' value='" + jobj.data("type") + "'>";
 							});
-							formObj.append(str); 
-							// submit();
+							formObj.append(str);  formObj.submit();
+						
 
 						}); // submit button event
 						

@@ -5,6 +5,7 @@ import java.util.List;
 import org.conan.domain.Criteria;
 import org.conan.mapper.BoardAttachMapper;
 import org.conan.mapper.BoardMapper;
+import org.conan.vo.BoardAttachVO;
 import org.conan.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,11 +38,17 @@ public class BoardServiceImpl implements BoardService {
 		});
 		
 	}
-
+ 
 	@Override
 	public BoardVO get(Long bno) {
 		// TODO Auto-generated method stub
 		return boardMapper.read(bno);
+	}
+
+	@Override
+	public List<BoardAttachVO> getAttachList(Long bno) {
+		// TODO Auto-generated method stub
+		return attachMapper.findByBno(bno);
 	}
 
 	@Override
@@ -52,7 +59,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean remove(Long bno) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub'
+		attachMapper.deleteAll(bno);
 		return 1==boardMapper.delete(bno);
 	}
 

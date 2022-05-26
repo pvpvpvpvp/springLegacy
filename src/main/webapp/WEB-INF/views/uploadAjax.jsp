@@ -12,8 +12,6 @@
     <script>
     const showImage = fileCallPath => {
         alert(fileCallPath);
-        $('.bigPictureWrapper').css("display", "flex").show();
-        $(".bigPicture").html("<img src='/display?fileName="+encodeURI(fileCallPath)+"'>").animate({width:'100%', height:'100%'});
       }
       $(document).ready(function () {
 

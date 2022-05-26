@@ -16,8 +16,6 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-
-
                         <div class="form-group">
                             <label>Title</label>
                             <input class="form-control" name="title" value='<c:out value="${board.title }"></c:out>'
@@ -33,13 +31,27 @@
                             <input class="form-control" name="writer" value='<c:out value="${board.writer }"></c:out>'
                                 readonly="readonly">
                         </div>
-                        <button data-oper='modify' onclick="location.href='/board/modify?bno=<c:out value=" ${board.bno
-                            }" />'" class="btn btn-default">Modify</button>
-                        <a href='/board/list' class="btn btn-default">List</a>
+                        <div class="form-group">
+                            <label>file</label>
+                            <div class="" id="attachList">
+                                <ul>
+                                    <div class="bigPictureWrapper">
+                                        <div class="bigPicture"></div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+
 
 
                     </div>
                     <!-- /.panel-body -->
+                    <div class="form-group">
+                        <button data-oper='modify' onclick="location.href='/board/modify?bno=<c:out value=" ${board.bno
+                            }" />'"
+                        class="btn btn-default">Modify</button>
+                        <a href='/board/list' class="btn btn-default">List</a>
+                    </div>
                 </div>
                 <!-- /.panel -->
 
@@ -59,6 +71,7 @@
                 </ul>
             </div>
         </div> <!-- /.reply panel -->
+
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModallabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -93,6 +106,11 @@
 
         <script src="/resources/js/reply.js"></script>
         <script>
+            const showImage = fileCallPath => {
+                alert(fileCallPath);
+                $('.bigPictureWrapper').css("display", "flex").show();
+                $(".bigPicture").html("<img src='/display?fileName=" + encodeURI(fileCallPath) + "'>").animate({ width: '100%', height: '100%' });
+            }
             $(document).ready(function () {
                 var bnoValue = `${board.bno}`
                 const replyUL = $('.chat');
@@ -118,8 +136,39 @@
                     }
                 )
                 showList(1);
+                let attachList = $('#attachList ul');
+                const showFile = uploadResultArr => {
+                    let str = "";
+                    $(uploadResultArr).each(function (i, obj) {
+                        if (!obj.fileType) {
+                            let fileCallPath =
+                                encodeURIComponent(obj.uploadpath + "/" + obj.uuid + "_" + obj.fileName);
+                            str += "<li class = 'col-md-2'><div><a href='/download?fileName=" + fileCallPath + "'><img src='/resources/images/attacth.png'>" + obj.fileName + "</a>"
+                                + "</div>"
+                                + "</li> ";
+                        } else {
+                            //  str +="<li>"+obj.fileName+"<li>";
+                            let fileCallPath =
+                                encodeURIComponent(obj.uploadpath + "/s_" + obj.uuid + "_" + obj.fileName);
+                            let originPath = obj.uploadpath + "/" + obj.uuid + "_" + obj.fileName;
+                            originPath = originPath.replace(new RegExp(/\\/g), "/");// 구분자 통일하기
 
-           
+                            str += "<li class = 'col-md-2'><a href=\"javascript:showImage(\'" + originPath + "\')\"> <img class = 'col-md-12' src='/display?fileName=" + fileCallPath + "'></a>"
+                                + ""
+                                + "</li> ";
+                        }
+                    });
+                    attachList.append(str);
+                } //showUploadFile
+                $.ajax({
+                    type: "get",
+                    url: `/board/getAttachList?bno=${'${bnoValue}'}`,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(`response`, response);
+                        showFile(response);
+                    }
+                });
 
                 const modal = $(".modal");
                 const modalInputReply = modal.find("input[name='reply']");
@@ -138,43 +187,49 @@
                     modalRegisterBtn.show();
                     $('#myModal').modal("show");
                 });
-                
+
                 modalRegisterBtn.on("click", function (e) {
                     let reply = {
-                        reply:modalInputReply.val(),
-                        replyer:modalInputReplyer.val(),
-                        bno:bnoValue
+                        reply: modalInputReply.val(),
+                        replyer: modalInputReplyer.val(),
+                        bno: bnoValue
                     }
                     replyService.add(
-                    reply,
-                    result =>{
-                        modal.find("input").val("");
-                        modal.modal("hide");
-                        showList(1);
-                    }
-                )
+                        reply,
+                        result => {
+                            modal.find("input").val("");
+                            modal.modal("hide");
+                            showList(1);
+                        }
+                    )
                 });
 
-                $('.chat').on("click",'li', function (e) {
+                $('.chat').on("click", 'li', function (e) {
                     let rno = $(this).data("rno");
-                    replyService.get(rno, function(reply){
-                    	modalInputReply.val(reply.reply);
-                    	modalInputReplyer.val(reply.replyer);
-                    	modalInputReplyDate.val(reply.replyDate).attr("readonly","readonly");
-                    	modal.data("rno",reply.rno);
-                    	
-                    	modal.find("button[id!='modalCloseBtn']").hide();
-                    	modalModBtn.show();
-                    	modalRemoveBtn.show();
-                    	modal.modal("show");
+                    replyService.get(rno, function (reply) {
+                        modalInputReply.val(reply.reply);
+                        modalInputReplyer.val(reply.replyer);
+                        modalInputReplyDate.val(reply.replyDate).attr("readonly", "readonly");
+                        modal.data("rno", reply.rno);
+
+                        modal.find("button[id!='modalCloseBtn']").hide();
+                        modalModBtn.show();
+                        modalRemoveBtn.show();
+                        modal.modal("show");
                     })
                 });
 
-              
+                $('.bigPictureWrapper').on("click", function (e) {
+                    $(".bigPicture").animate({ width: '0%', height: '0%' }, 1000);
+                    setTimeout(() => {
+                        $('.bigPictureWrapper').hide();
+                    }, 1000);
+                });
 
-               
 
-            
+
+
+
 
                 // replyService.remove(
                 //     19,

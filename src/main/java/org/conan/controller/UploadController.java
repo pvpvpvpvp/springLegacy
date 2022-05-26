@@ -57,7 +57,7 @@ public class UploadController {
       UUID uuid = UUID.randomUUID();
       String uploadFileName = multipartFile.getOriginalFilename(); // 파일 이름 설정
       attachVO.setFileName(uploadFileName);
-      attachVO.setUploadPath(getFolder());
+      attachVO.setUploadpath(getFolder());
       uploadFileName = uuid.toString()+"_"+uploadFileName;
       
       File saveFile = new File(uploadPath,uploadFileName);
@@ -68,7 +68,7 @@ public class UploadController {
     		  attachVO.setFileType(true);
 			FileOutputStream thumbnall = 
 					new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
-			Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnall, 100 , 100);
+			Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnall, 10 , 10);
 			thumbnall.close();
 		}
     	  list.add(attachVO); log.info("attachVO: "+attachVO);

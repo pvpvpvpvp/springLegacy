@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.conan.mapper.BoardAttachMapper">
-	<select id="findByBno" resultType="BoardAttachVO">
-		SELECT * FROM WHERE bno=#{bno}
+
+	<resultMap type="BoardAttachVO" id="BoardAttachMap">
+	  <id property="noticeIdx" column="NOTICE_IDX"/>
+	  <result property="uuid" column="UUID"/>
+	  <result property="bno" column="BNO"/>
+	  <result property="uploadpath" column="UPLOADPATH"/>
+	  <result property="fileName" column="FILE_NAME"/>
+	  <result property="fileType" column="FILE_TYPE"/>
+	</resultMap>
+	<select id="findByBno" resultMap="BoardAttachMap">
+		SELECT * FROM TBL_ATTACH WHERE bno=#{bno}
 	</select>
 	<insert id="insert">
 		INSERT INTO TBL_ATTACH
 		(UUID, BNO, UPLOADPATH, FILE_NAME, FILE_TYPE)
-		VALUES(#{uuid}, #{bno}, #{uploadPath}, #{fileName}, #{fileType} )
-	
+		VALUES(#{uuid}, #{bno}, #{uploadpath}, #{fileName}, #{fileType} )
 	</insert>
+	<delete id="deleteAll">
+		DELETE TBL_ATTACH
+		WHERE bno=#{bno}
+	</delete>
+	<select id="getOldFiles" resultMap="BoardAttachMap">
+		SELECT * FROM TBL_ATTACH WHERE uploadpath = to_char(sysdate-1,'yyyy/mm/dd')
+	</select>
 </mapper>

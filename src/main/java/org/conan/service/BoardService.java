@@ -3,8 +3,8 @@ package org.conan.service;
 import java.util.List;
 
 import org.conan.domain.Criteria;
+import org.conan.vo.BoardAttachVO;
 import org.conan.vo.BoardVO;
-import org.springframework.stereotype.Service;
 
 public interface BoardService {
 	public void regstaer(BoardVO vo);
@@ -14,4 +14,5 @@ public interface BoardService {
 	public List<BoardVO> getList();
 	public int getTotal(Criteria cri);
 	public List<BoardVO> getListWithSearch(Criteria cri);
+	public List<BoardAttachVO> getAttachList(Long bno);
 }
