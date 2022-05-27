@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
 	ReplyMapper replyMapper;
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public void regstaer(BoardVO vo) {
 
 		boardMapper.insertSelectKey(vo);
@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public boolean modify(BoardVO vo) {
 		// TODO Auto-generated method stub
 		if(vo.getAttachList() == null || vo.getAttachList().size()<=0) {
@@ -79,7 +79,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public boolean remove(Long bno) {
 		// TODO Auto-generated method stub'
 		replyMapper.boardDelete(bno);
